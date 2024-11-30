@@ -2,7 +2,6 @@ import rasterio
 from rasterio.transform import from_origin
 import os
 
-# Updated affine transform using TIFF file's metadata
 transform = rasterio.Affine(
     0.008333333300326820764,  # Pixel size in the x direction
     0.0,                      # Rotation (no rotation)
@@ -14,10 +13,10 @@ transform = rasterio.Affine(
 
 # Square coordinates extend from city center
 square_coords = {
-    'north': (36.03906156471074, -78.8986),#(lat,Long)
-    'south': (35.948938096072894, -78.8986),
-    'east': (35.994, -78.8431495088796),
-    'west': (35.994, -78.9540504911204)
+    'north': (40.75782525209861, -74.006),#(lat,Long)
+    'south': (40.66777439556954, -74.006),
+    'east': (40.7128, -73.94682794081581),
+    'west': (40.7128, -74.06517205918419)
 }
 # Convert square's geographic coordinates to pixel coordinates
 #col = (longitude - origin_x) / pixel_size_x
@@ -52,8 +51,8 @@ print("Bounding box in geographic coordinates:")
 print(f"West (min_lon): {min_lon}, South (min_lat): {min_lat}")
 print(f"East (max_lon): {max_lon}, North (max_lat): {max_lat}")
 bbox = f"{min_lon},{min_lat},{max_lon},{max_lat}"
-
-output_path = "/Users/weilynnw/Desktop/RA_new/area_of_interest/area_of_interest"
+print(bbox)
+output_path = "/Users/weilynnw/Desktop/RA_new/newyork5x5"
 command = f"overturemaps download --bbox={bbox} -f geojson --type=building -o {output_path}"
 os.system(command)
 

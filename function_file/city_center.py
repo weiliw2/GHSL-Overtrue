@@ -15,7 +15,7 @@ def calculate_bounding_box(city_center_point, x_km, y_km):
         "west": (latitude, west)
     }
 
-city_center_point = (35.9940, -78.8986) 
+city_center_point = (40.7128, -74.0060)
 x_km = 5
 y_km = 5
 bounding_box = calculate_bounding_box(city_center_point, x_km, y_km)

@@ -1,0 +1,34 @@
+import rasterio
+from rasterio.windows import Window
+from rasterio.transform import Affine
+
+# Define the pixel bounding box
+min_col, min_row = 12712, 5801
+max_col, max_row = 12726, 5811
+
+# Open the raster file
+input_raster = "/Users/weilynnw/Desktop/RA_new/GHS_BUILT_S_E2020_GLOBE_R2023A_4326_30ss_V1_0.tif"  # Replace with your raster file path
+output_raster = "/Users/weilynnw/Desktop/RA_new/result.tif"  # Replace with the desired output file path
+
+with rasterio.open(input_raster) as src:
+    # Define the window based on pixel coordinates
+    window = Window.from_slices((min_row, max_row), (min_col, max_col))
+    
+    # Read the data within the window
+    clipped_data = src.read(window=window)
+    
+    # Adjust the transform for the clipped region
+    transform = src.window_transform(window)
+    
+    # Write the clipped raster to a new file
+    profile = src.profile
+    profile.update({
+        "height": window.height,
+        "width": window.width,
+        "transform": transform
+    })
+    
+    with rasterio.open(output_raster, "w", **profile) as dst:
+        dst.write(clipped_data)
+
+print("Clipped raster saved to:", output_raster)
