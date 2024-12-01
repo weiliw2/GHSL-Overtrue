@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-file_path = '/Users/weilynnw/Desktop/RA_new/NYC_data.csv'
+file_path = '/Users/weilynnw/Desktop/RA_new/Chicago_result.csv'
 data = pd.read_csv(file_path, low_memory=False)
 
 
@@ -28,7 +28,7 @@ rmse = np.sqrt(np.mean((summary_data['GHSL_val'] - summary_data['total_building_
 print("Mean Absolute Error (MAE):", mae)
 print("Root Mean Squared Error (RMSE):", rmse)
 
-output_path = '/Users/weilynnw/Desktop/GHSL:overtrue/nyc_result.csv'
+output_path = '/Users/weilynnw/Desktop/GHSL:overtrue/chicago_result.csv'
 summary_data.to_csv(output_path, index=False)
 
 output_path
