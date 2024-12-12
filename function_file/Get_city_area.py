@@ -25,13 +25,14 @@ def geographic_to_pixel(lat, lon, transform):
     return int(col), int(row)
 
 # Define the city center and distance for the bounding box
+# Change the parameter()
 city_center_point = (41.8781, -87.6298)  # Example: Chicago coordinates
 x_km = 5
 y_km = 5
 bounding_box = calculate_bounding_box(city_center_point, x_km, y_km)
 print("Bounding Box Coordinates:", bounding_box)
 
-# Define affine transform (adjust according to your raster data)
+# Define affine transform
 transform = rasterio.Affine(
     0.008333333300326820764,  # Pixel size in the x direction
     0.0,                      # Rotation (no rotation)
@@ -41,7 +42,6 @@ transform = rasterio.Affine(
     89.0995831776455987       # Origin y-coordinate (north)
 )
 
-# Example bounding box for square coordinates (replace with your calculated values)
 square_coords = bounding_box
 
 # Convert bounding box geographic coordinates to pixel coordinates
@@ -72,11 +72,11 @@ print("Bounding box in geographic coordinates:")
 print(f"West (min_lon): {min_lon}, South (min_lat): {min_lat}")
 print(f"East (max_lon): {max_lon}, North (max_lat): {max_lat}")
 
-# Form the bounding box string for the command
+# Dowload the Overture data
 bbox = f"{min_lon},{min_lat},{max_lon},{max_lat}"
 print("Formatted BBox:", bbox)
 
-# Run the command to download data using the bounding box
+# Define the output path
 output_path = "/Users/weilynnw/Desktop/RA_new/newyork5x5"
 command = f"overturemaps download --bbox={bbox} -f geojson --type=building -o {output_path}"
 os.system(command)

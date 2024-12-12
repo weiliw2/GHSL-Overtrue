@@ -2,12 +2,12 @@ import rasterio
 from rasterio.windows import Window
 from rasterio.transform import Affine
 
-# Define the pixel bounding box
+# Define the pixel bounding box(get the result from the Get_city file)
 min_col, min_row = 12712, 5801
 max_col, max_row = 12726, 5811
 
 # Open the raster file
-input_raster = "/Users/weilynnw/Desktop/RA_new/GHS_BUILT_S_E2020_GLOBE_R2023A_4326_30ss_V1_0.tif"  # Replace with your raster file path
+input_raster = "/Users/weilynnw/Desktop/RA_new/GHS_BUILT_S_E2020_GLOBE_R2023A_4326_30ss_V1_0.tif"  # Replace with the whole_global_30ssGHSL.tiff file path
 output_raster = "/Users/weilynnw/Desktop/RA_new/result.tif"  # Replace with the desired output file path
 
 with rasterio.open(input_raster) as src:
@@ -31,4 +31,4 @@ with rasterio.open(input_raster) as src:
     with rasterio.open(output_raster, "w", **profile) as dst:
         dst.write(clipped_data)
 
-print("Clipped raster saved to:", output_raster)
+print("Clipped_size raster saved to:", output_raster)
