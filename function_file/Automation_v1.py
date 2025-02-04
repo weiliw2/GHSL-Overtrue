@@ -12,7 +12,7 @@ with rasterio.open(raster_path) as src:
     raster_nodata = src.nodata if src.nodata is not None else -999  # Explicitly set NoData
 
 polygon_path = "/Users/weilynnw/Desktop/GHSL:overtrue/Grosshall.geojson"
-buildings = gpd.read_file(polygon_path)
+buildings0 = gpd.read_file(polygon_path)
 
 buildings = buildings.to_crs(epsg=6933)
 
