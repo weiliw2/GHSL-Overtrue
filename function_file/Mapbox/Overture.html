@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Satellite Map with Overture Data</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.js"></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+</head>
+<body>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.css" type="text/css">
+    <div id="map"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoid2VpbGl3MiIsImEiOiJjbTZmYzl4c3EwM24yMm1weW9lZXY0dXR0In0.1aBFbg2tAL3ByV1VO0dfiQ';
+    
+        // Initialize the map
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/weiliw2/cm6faignp001r01s52bcc338i', // your custom style
+            center: [-74.00, 40.7128], // initial map center [longitude, latitude]
+            zoom: 15 // initial zoom level
+        });
+    
+        map.on('load', () => {
+            // Add a GeoJSON source for Overture Maps data
+            map.addSource('overture-data', {
+                type: 'geojson',
+                data: './Combined.geojson'
+            });
+    
+            // Add a layer to visualize the GeoJSON data
+            map.addLayer({
+                id: 'overture-layer',
+                type: 'fill', // Use 'line' or 'circle' depending on your data type
+                source: 'overture-data',
+                paint: {
+                    'fill-color': '#ff0000', // Red for buildings
+                    'fill-opacity': 0.5
+                }
+            });
+    
+            // Add interactivity with a popup
+            map.on('click', 'overture-layer', (e) => {
+                const properties = e.features[0].properties;
+                new mapboxgl.Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML(`<h3>${properties.name || 'Feature'}</h3>`)
+                    .addTo(map);
+            });
+    
+            // Add geocoding search box
+            const geocoder = new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                mapboxgl: mapboxgl, // Specify the Mapbox GL instance for rendering
+                placeholder: 'Search for an address', // Placeholder text for the search box
+                zoom: 16, // Zoom level after selecting a result
+                bbox: [-180, -85, 180, 85], // Optional: Limit search results to a bounding box
+            });
+    
+            // Add geocoder control to the map (top-right by default)
+            map.addControl(geocoder, 'top-right');
+    
+            geocoder.on('result', (e) => {
+                console.log("Selected result:", e.result);
+            });
+        });
+    </script>    
+</body>
+</html>

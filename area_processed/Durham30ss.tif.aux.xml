@@ -1,0 +1,14 @@
+<PAMDataset>
+  <Metadata>
+    <MDI key="resampling">average</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <Metadata>
+      <MDI key="STATISTICS_MAXIMUM">238003</MDI>
+      <MDI key="STATISTICS_MEAN">64898.393103448</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_STDDEV">48210.396479087</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">100</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>
