@@ -9,7 +9,7 @@ with rasterio.open(raster_path) as src:
     raster_array = src.read(1)
     raster_meta = src.meta
     raster_transform = src.transform
-    raster_nodata = src.nodata if src.nodata is not None else -999  # Explicitly set NoData
+    raster_nodata = src.nodata if src.nodata is not None else -999
 
 polygon_path = "/Users/weilynnw/Desktop/GHSL:overtrue/Grosshall.geojson"
 buildings0 = gpd.read_file(polygon_path)
